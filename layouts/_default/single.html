@@ -1,17 +1,15 @@
 {{ define "main" }}
 <h1>{{ .Title }}</h1>
 <p>
-  <i>
+  <small>
+    {{ with .Params.author }}{{ . }}{{ end }}
     <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate>
       {{ .Date.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
     </time>
     {{ if not (eq .Date .Lastmod) }}
-    &nbsp; <span title="{{ .Lastmod }}">{{i18n "lastMod"}}: {{ .Lastmod.Format
-      (default "02 Jan, 2006" .Site.Params.dateFormat) }}</span>
+    <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{i18n "lastMod"}}: {{ .Lastmod.Format
+      (default "02 Jan, 2006" .Site.Params.dateFormat) }}</time>
     {{ end }}
-  </i>
-  <small>
-    {{ with .Params.author }}{{ . }}{{ end }}
     {{ range $i := (slice "categories" "tags") }}
     {{ with ($.Param $i) }}
     &nbsp; <span>{{ $i }}:
