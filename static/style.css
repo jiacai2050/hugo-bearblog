@@ -201,3 +201,9 @@ ul.blog-posts li a:visited {
   border-radius: 6px;
   transition: transform 0.1s;
 }
+
+figure {
+  text-align: center;
+  font-style: oblique;
+  font-size: smaller;
+}
