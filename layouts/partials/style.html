@@ -170,4 +170,24 @@
     }
   }
 
+  #table-of-contents {
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    background-color: var(--bg-block);
+
+    padding: 10px;
+    box-shadow: var(--box-shadow);
+    width: 250px;
+  }
+
+  @media screen and (max-width: 1420px) {
+    #table-of-contents {
+      position: static;
+      padding: 0px;
+      transform: none;
+    }
+  }
+
 </style>

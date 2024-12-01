@@ -1,0 +1,8 @@
+{{ if .IsPage }}
+{{ with .TableOfContents }}
+<div id="table-of-contents">
+  <h3>{{i18n "toc"}}</h3>
+  {{ . | safeHTML }}
+</div>
+{{ end }}
+{{ end }}

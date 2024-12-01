@@ -1,20 +1,36 @@
 {{ define "main" }}
-{{ if eq .Type "blog" }}{{ if not .Params.menu }}
 <h1>{{ .Title }}</h1>
 <p>
   <i>
     <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate>
       {{ .Date.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
     </time>
+    {{ if not (eq .Date .Lastmod) }}
+    &nbsp; <span title="{{ .Lastmod }}">{{i18n "lastMod"}}: {{ .Lastmod.Format
+      (default "02 Jan, 2006" .Site.Params.dateFormat) }}</span>
+    {{ end }}
   </i>
+  <small>
+    {{ with .Params.author }}{{ . }}{{ end }}
+    {{ range $i := (slice "categories" "tags") }}
+    {{ with ($.Param $i) }}
+    &nbsp; <span>{{ $i }}:
+      {{ range $k := . }}
+      <a href="{{ relURL (print "/" $i "/" $k | urlize) }}">{{$k}}</a>
+      {{ end }}
+    </span>
+    {{ end }}
+    {{ end }}
+    {{ partial "content_header.html" . }}
+  </small>
 </p>
-{{ end }}{{ end }}
+
+{{- partial "toc.html" . -}}
+
+{{ partial "content_header.html" . }}
 <content>
   {{ .Content }}
 </content>
-<p>
-  {{ range (.GetTerms "tags") }}
-  <a href="{{ .Permalink }}">#{{ .LinkTitle }}</a>
-  {{ end }}
-</p>
+{{ partial "content_footer.html" . }}
+
 {{ end }}
